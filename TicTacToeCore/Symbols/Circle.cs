@@ -21,7 +21,7 @@ namespace TicTacToeCore.Symbols
             return ellipse;
         }
 
-        public void Draw(Canvas canvas)
+        public static void Draw(Canvas canvas)
         {
             canvas.Children.Add(CircleDrawing());
         }

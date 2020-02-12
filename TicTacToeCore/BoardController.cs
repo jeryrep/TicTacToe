@@ -8,117 +8,88 @@ namespace TicTacToeCore
 {
     internal class BoardController
     {
-        private char[] _cells;
+        private Piece[] _cells;
         private readonly Dictionary<int, Canvas> _canvases;
         private readonly int _mode;
         private int _round = 0;
-        private readonly Circle _circle = new Circle();
-        private readonly Cross _cross = new Cross();
-        private readonly EasyDifficulty _easyDifficulty = new EasyDifficulty();
 
-        public void ClearBoard()
+        public void ResetGame()
         {
             foreach (var canvas in _canvases)
                 canvas.Value.Children.Clear();
-            _cells = "         ".ToCharArray();
+            _cells = new Piece[9];
             _round = 0;
         }
 
         private void MakeComputerMove()
         {
             int computerMove;
-            if (_mode == 0)
+            switch (_mode)
             {
-                computerMove = _easyDifficulty.MakeMove(_cells);
-                _cells[computerMove] = 'o';
-                _circle.Draw(_canvases[computerMove]);
+                case 0:
+                    computerMove = EasyDifficulty.GetIndex(_cells);
+                    _cells[computerMove] = Piece.O;
+                    Circle.Draw(_canvases[computerMove]);
+                    break;
+                case 1:
+                    computerMove = MediumDifficulty.GetIndex(_cells);
+                    _cells[computerMove] = Piece.O;
+                    Circle.Draw(_canvases[computerMove]);
+                    break;
             }
-            if (_mode == 1)
-            {
-                var mediumDifficulty = new MediumDifficulty(_cells);
-                computerMove = mediumDifficulty.MakeMove();
-                _cells[computerMove] = 'o';
-                _circle.Draw(_canvases[computerMove]);
-            }
-        }
-
-        private bool AnalyzeBoardState()
-        {
-            if ((_cells[0] == 'x' && _cells[1] == 'x' && _cells[2] == 'x') ||
-                (_cells[3] == 'x' && _cells[4] == 'x' && _cells[5] == 'x') ||
-                (_cells[6] == 'x' && _cells[7] == 'x' && _cells[8] == 'x') ||
-                (_cells[0] == 'x' && _cells[3] == 'x' && _cells[6] == 'x') ||
-                (_cells[1] == 'x' && _cells[4] == 'x' && _cells[7] == 'x') ||
-                (_cells[2] == 'x' && _cells[5] == 'x' && _cells[8] == 'x') ||
-                (_cells[0] == 'x' && _cells[4] == 'x' && _cells[8] == 'x') ||
-                (_cells[2] == 'x' && _cells[4] == 'x' && _cells[6] == 'x'))
-            {
-                MessageBox.Show("X won!", "Game over!");
-                ClearBoard();
-                return true;
-            }
-            if ((_cells[0] == 'o' && _cells[1] == 'o' && _cells[2] == 'o') || 
-                (_cells[3] == 'o' && _cells[4] == 'o' && _cells[5] == 'o') ||
-                (_cells[6] == 'o' && _cells[7] == 'o' && _cells[8] == 'o') ||
-                (_cells[0] == 'o' && _cells[3] == 'o' && _cells[6] == 'o') ||
-                (_cells[1] == 'o' && _cells[4] == 'o' && _cells[7] == 'o') ||
-                (_cells[2] == 'o' && _cells[5] == 'o' && _cells[8] == 'o') ||
-                (_cells[0] == 'o' && _cells[4] == 'o' && _cells[8] == 'o') ||
-                (_cells[2] == 'o' && _cells[4] == 'o' && _cells[6] == 'o'))
-            {
-                MessageBox.Show("O won!", "Game over!");
-                ClearBoard();
-                return true;
-            }
-            if (_round == 9)
-            {
-                MessageBox.Show("Draw!", "Game over");
-                ClearBoard();
-                return true;
-            }
-            return false;
         }
 
         public void ProcessClick(int index)
         {
-            if (_cells[index] != ' ')
+            if (_cells[index] != Piece.Empty)
                 MessageBox.Show("Select not occupied cell.", "Cell occupied");
             else
             {
                 _round++;
-                if (_mode == 3)
+                switch (_mode)
                 {
-                    if (_round % 2 != 0)
+                    case 3:
                     {
-                        _cross.Draw(_canvases[index]);
-                        _cells[index] = 'x';
+                        if (_round % 2 != 0)
+                        {
+                            Cross.Draw(_canvases[index]);
+                            _cells[index] = Piece.X;
+                            BoardAnalyzer.CheckGameWin(_cells, Piece.X);
+                        }
+                        else
+                        {
+                            Circle.Draw(_canvases[index]);
+                            _cells[index] = Piece.X;
+                            BoardAnalyzer.CheckGameWin(_cells, Piece.O);
+                        }
+                        break;
                     }
-                    else
+                    case 0:
                     {
-                        _circle.Draw(_canvases[index]);
-                        _cells[index] = 'o';
+                        Cross.Draw(_canvases[index]);
+                        _cells[index] = Piece.X;
+                        if (BoardAnalyzer.CheckGameWin(_cells, Piece.X))
+                        {
+                            MessageBox.Show("X won!", "Game over");
+                            ResetGame();
+                            return;
+                        }
+                        _round++;
+                        MakeComputerMove();
+                        BoardAnalyzer.CheckGameWin(_cells, Piece.O);
+                        break;
                     }
-                    AnalyzeBoardState();
-                }
-                else if (_mode == 0)
-                {
-                    _cross.Draw(_canvases[index]);
-                    _cells[index] = 'x';
-                    if (AnalyzeBoardState())
-                        return;
-                    _round++;
-                    MakeComputerMove();
-                    AnalyzeBoardState();
-                }
-                else if (_mode == 1)
-                {
-                    _cross.Draw(_canvases[index]);
-                    _cells[index] = 'x';
-                    if (AnalyzeBoardState())
-                        return;
-                    _round++;
-                    MakeComputerMove();
-                    AnalyzeBoardState();
+                    case 1:
+                    {
+                        Cross.Draw(_canvases[index]);
+                        _cells[index] = Piece.X;
+                        if (BoardAnalyzer.CheckGameWin(_cells, Piece.X))
+                            return;
+                        _round++;
+                        MakeComputerMove();
+                        BoardAnalyzer.CheckGameWin(_cells, Piece.O);
+                        break;
+                    }
                 }
             }
         }
@@ -127,7 +98,7 @@ namespace TicTacToeCore
         {
             _mode = mode;
             _canvases = canvases;
-            _cells = "         ".ToCharArray();
+            _cells = new Piece[9];
         }
     }
 }

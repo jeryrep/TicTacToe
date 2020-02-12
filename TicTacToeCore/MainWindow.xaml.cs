@@ -76,7 +76,7 @@ namespace TicTacToeCore
 
         private void RestartButton_Click(object sender, RoutedEventArgs e)
         {
-            _boardController.ClearBoard();
+            _boardController.ResetGame();
         }
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -85,7 +85,7 @@ namespace TicTacToeCore
                 _start = false;
             else
             {
-                _boardController.ClearBoard();
+                _boardController.ResetGame();
                 _boardController = new BoardController(Difficulty.SelectedIndex, _canvases);
             }
         }

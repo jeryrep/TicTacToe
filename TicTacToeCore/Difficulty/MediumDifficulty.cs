@@ -1,117 +1,109 @@
 ﻿using System;
-using System.Windows;
+using System.Collections.Generic;
 
 namespace TicTacToeCore.Difficulty
 {
     internal class MediumDifficulty
     {
-        private readonly char[] _board;
-        private readonly Random _random = new Random();
-
-        private int CheckLosingPosition()
+        private static int CheckLosingPosition(IReadOnlyList<Piece> board)
         {
-            if ((_board[0] == ' ' && _board[1] == 'x' && _board[2] == 'x') ||
-                (_board[0] == ' ' && _board[3] == 'x' && _board[6] == 'x') ||
-                (_board[0] == ' ' && _board[4] == 'x' && _board[8] == 'x'))
+            if ((board[0] == Piece.Empty && board[1] == Piece.X && board[2] == Piece.X) ||
+                (board[0] == Piece.Empty && board[3] == Piece.X && board[6] == Piece.X) ||
+                (board[0] == Piece.Empty && board[4] == Piece.X && board[8] == Piece.X))
                 return 0;
-            if ((_board[0] == 'x' && _board[1] == ' ' && _board[2] == 'x') ||
-                (_board[1] == ' ' && _board[4] == 'x' && _board[7] == 'x'))
+            if ((board[0] == Piece.X && board[1] == Piece.Empty && board[2] == Piece.X) ||
+                (board[1] == Piece.Empty && board[4] == Piece.X && board[7] == Piece.X))
                 return 1;
-            if ((_board[0] == 'x' && _board[1] == 'x' && _board[2] == ' ') || 
-                (_board[2] == ' ' && _board[5] == 'x' && _board[8] == 'x') ||
-                (_board[2] == ' ' && _board[4] == 'x' && _board[6] == 'x'))
+            if ((board[0] == Piece.X && board[1] == Piece.X && board[2] == Piece.Empty) || 
+                (board[2] == Piece.Empty && board[5] == Piece.X && board[8] == Piece.X) ||
+                (board[2] == Piece.Empty && board[4] == Piece.X && board[6] == Piece.X))
                 return 2;
-            if ((_board[3] == ' ' && _board[4] == 'x' && _board[5] == 'x') ||
-                (_board[0] == 'x' && _board[3] == ' ' && _board[6] == 'x'))
+            if ((board[3] == Piece.Empty && board[4] == Piece.X && board[5] == Piece.X) ||
+                (board[0] == Piece.X && board[3] == Piece.Empty && board[6] == Piece.X))
                 return 3;
-            if ((_board[3] == 'x' && _board[4] == ' ' && _board[5] == 'x') ||
-                (_board[1] == 'x' && _board[4] == ' ' && _board[7] == 'x') ||
-                (_board[0] == 'x' && _board[4] == ' ' && _board[8] == 'x') ||
-                (_board[2] == 'x' && _board[4] == ' ' && _board[6] == 'x'))
+            if ((board[3] == Piece.X && board[4] == Piece.Empty && board[5] == Piece.X) ||
+                (board[1] == Piece.X && board[4] == Piece.Empty && board[7] == Piece.X) ||
+                (board[0] == Piece.X && board[4] == Piece.Empty && board[8] == Piece.X) ||
+                (board[2] == Piece.X && board[4] == Piece.Empty && board[6] == Piece.X))
                 return 4;
-            if ((_board[3] == 'x' && _board[4] == 'x' && _board[5] == ' ') ||
-                (_board[2] == 'x' && _board[5] == ' ' && _board[8] == 'x'))
+            if ((board[3] == Piece.X && board[4] == Piece.X && board[5] == Piece.Empty) ||
+                (board[2] == Piece.X && board[5] == Piece.Empty && board[8] == Piece.X))
                 return 5;
-            if ((_board[6] == ' ' && _board[7] == 'x' && _board[8] == 'x') ||
-                (_board[2] == 'x' && _board[4] == 'x' && _board[6] == ' ') ||
-                (_board[0] == 'x' && _board[3] == 'x' && _board[6] == ' '))
+            if ((board[6] == Piece.Empty && board[7] == Piece.X && board[8] == Piece.X) ||
+                (board[2] == Piece.X && board[4] == Piece.X && board[6] == Piece.Empty) ||
+                (board[0] == Piece.X && board[3] == Piece.X && board[6] == Piece.Empty))
                 return 6;
-            if ((_board[6] == 'x' && _board[7] == ' ' && _board[8] == 'x') ||
-                (_board[1] == 'x' && _board[4] == 'x' && _board[7] == ' '))
+            if ((board[6] == Piece.X && board[7] == Piece.Empty && board[8] == Piece.X) ||
+                (board[1] == Piece.X && board[4] == Piece.X && board[7] == Piece.Empty))
                 return 7;
-            if ((_board[6] == 'x' && _board[7] == 'x' && _board[8] == ' ') ||
-                (_board[2] == 'x' && _board[5] == 'x' && _board[8] == ' ') ||
-                (_board[0] == 'x' && _board[4] == 'x' && _board[8] == ' '))
+            if ((board[6] == Piece.X && board[7] == Piece.X && board[8] == Piece.Empty) ||
+                (board[2] == Piece.X && board[5] == Piece.X && board[8] == Piece.Empty) ||
+                (board[0] == Piece.X && board[4] == Piece.X && board[8] == Piece.Empty))
                 return 8;
             return -1;
         }
 
-        private int CheckWinningPosition()
+        private static int CheckWinningPosition(IReadOnlyList<Piece> board)
         {
-            if ((_board[0] == ' ' && _board[1] == 'o' && _board[2] == 'o') ||
-                (_board[0] == ' ' && _board[3] == 'o' && _board[6] == 'o') ||
-                (_board[0] == ' ' && _board[4] == 'o' && _board[8] == 'o'))
+            if ((board[0] == Piece.Empty && board[1] == Piece.O && board[2] == Piece.O) ||
+                (board[0] == Piece.Empty && board[3] == Piece.O && board[6] == Piece.O) ||
+                (board[0] == Piece.Empty && board[4] == Piece.O && board[8] == Piece.O))
                 return 0;
-            if ((_board[0] == 'o' && _board[1] == ' ' && _board[2] == 'o') ||
-                (_board[1] == ' ' && _board[4] == 'o' && _board[7] == 'o'))
+            if ((board[0] == Piece.O && board[1] == Piece.Empty && board[2] == Piece.O) ||
+                (board[1] == Piece.Empty && board[4] == Piece.O && board[7] == Piece.O))
                 return 1;
-            if ((_board[0] == 'o' && _board[1] == 'o' && _board[2] == ' ') ||
-                (_board[2] == ' ' && _board[5] == 'o' && _board[8] == 'o') ||
-                (_board[2] == ' ' && _board[4] == 'o' && _board[6] == 'o'))
+            if ((board[0] == Piece.O && board[1] == Piece.O && board[2] == Piece.Empty) ||
+                (board[2] == Piece.Empty && board[5] == Piece.O && board[8] == Piece.O) ||
+                (board[2] == Piece.Empty && board[4] == Piece.O && board[6] == Piece.O))
                 return 2;
-            if ((_board[3] == ' ' && _board[4] == 'o' && _board[5] == 'o') ||
-                (_board[0] == 'o' && _board[3] == ' ' && _board[6] == 'o'))
+            if ((board[3] == Piece.Empty && board[4] == Piece.O && board[5] == Piece.O) ||
+                (board[0] == Piece.O && board[3] == Piece.Empty && board[6] == Piece.O))
                 return 3;
-            if ((_board[3] == 'o' && _board[4] == ' ' && _board[5] == 'o') ||
-                (_board[1] == 'o' && _board[4] == ' ' && _board[7] == 'o') ||
-                (_board[0] == 'o' && _board[4] == ' ' && _board[8] == 'o') ||
-                (_board[2] == 'o' && _board[4] == ' ' && _board[6] == 'o'))
+            if ((board[3] == Piece.O && board[4] == Piece.Empty && board[5] == Piece.O) ||
+                (board[1] == Piece.O && board[4] == Piece.Empty && board[7] == Piece.O) ||
+                (board[0] == Piece.O && board[4] == Piece.Empty && board[8] == Piece.O) ||
+                (board[2] == Piece.O && board[4] == Piece.Empty && board[6] == Piece.O))
                 return 4;
-            if ((_board[3] == 'o' && _board[4] == 'o' && _board[5] == ' ') ||
-                (_board[2] == 'o' && _board[5] == ' ' && _board[8] == 'o'))
+            if ((board[3] == Piece.O && board[4] == Piece.O && board[5] == Piece.Empty) ||
+                (board[2] == Piece.O && board[5] == Piece.Empty && board[8] == Piece.O))
                 return 5;
-            if ((_board[6] == ' ' && _board[7] == 'o' && _board[8] == 'o') ||
-                (_board[2] == 'o' && _board[4] == 'o' && _board[6] == ' ') ||
-                (_board[0] == 'o' && _board[3] == 'o' && _board[6] == ' '))
+            if ((board[6] == Piece.Empty && board[7] == Piece.O && board[8] == Piece.O) ||
+                (board[2] == Piece.O && board[4] == Piece.O && board[6] == Piece.Empty) ||
+                (board[0] == Piece.O && board[3] == Piece.O && board[6] == Piece.Empty))
                 return 6;
-            if ((_board[6] == 'o' && _board[7] == ' ' && _board[8] == 'o') ||
-                (_board[1] == 'o' && _board[4] == 'o' && _board[7] == ' '))
+            if ((board[6] == Piece.O && board[7] == Piece.Empty && board[8] == Piece.O) ||
+                (board[1] == Piece.O && board[4] == Piece.O && board[7] == Piece.Empty))
                 return 7;
-            if ((_board[6] == 'o' && _board[7] == 'o' && _board[8] == ' ') ||
-                (_board[2] == 'o' && _board[5] == 'o' && _board[8] == ' ') ||
-                (_board[0] == 'o' && _board[4] == 'o' && _board[8] == ' '))
+            if ((board[6] == Piece.O && board[7] == Piece.O && board[8] == Piece.Empty) ||
+                (board[2] == Piece.O && board[5] == Piece.O && board[8] == Piece.Empty) ||
+                (board[0] == Piece.O && board[4] == Piece.O && board[8] == Piece.Empty))
                 return 8;
             return -1;
         }
 
-        private int SuggestedCell()
+        private static int SuggestedCell(IReadOnlyList<Piece> board)
         {
-            int winningCell = CheckWinningPosition();
+            var winningCell = CheckWinningPosition(board);
             if (winningCell != -1)
                 return winningCell;
-            int losingCell = CheckLosingPosition();
+            var losingCell = CheckLosingPosition(board);
             if (losingCell != -1)
                 return losingCell;
             return -1;
         }
 
-        private int GenerateRandomNumber() => _random.Next(0, 9);
+        private static int GenerateRandomNumber() => new Random().Next(0, 9);
 
-        public int MakeMove()
+        public static int GetIndex(Piece[] board)
         {
-            int suggestedCell = SuggestedCell();
+            var suggestedCell = SuggestedCell(board);
             if (suggestedCell != -1)
                 return suggestedCell;
             int randomCell;
             do
                 randomCell = GenerateRandomNumber();
-            while (!char.IsWhiteSpace(_board[randomCell]));
+            while (board[randomCell] != Piece.Empty);
             return randomCell;
-        }
-
-        public MediumDifficulty(char[] board)
-        {
-            _board = board;
         }
     }
 }

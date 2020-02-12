@@ -34,7 +34,7 @@ namespace TicTacToeCore.Symbols
             return myLine;
         }
 
-        public void Draw(Canvas canvas)
+        public static void Draw(Canvas canvas)
         {
             canvas.Children.Add(DrawLeftLine());
             canvas.Children.Add(DrawRightLine());
