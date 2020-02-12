@@ -6,42 +6,41 @@
         mc:Ignorable="d"
         Title="Tic Tac Toe" Height="300" Width="370" ResizeMode="CanMinimize">
     <Grid Background="CadetBlue">
-        <ComboBox Name="Difficulty" SelectedIndex="3" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Width="109" SelectionChanged="Selector_OnSelectionChanged">
+        <ComboBox Name="Difficulty" SelectedIndex="1" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Width="109" SelectionChanged="Selector_OnSelectionChanged">
             <ComboBoxItem Content="Easy" />
-            <ComboBoxItem Content="Medium"/>
-            <ComboBoxItem Content="Impossible"/>
-            <ComboBoxItem Content="Play with friend"/>
+            <ComboBoxItem Content="Medium" />
+            <ComboBoxItem Content="Impossible" />
+            <ComboBoxItem Content="Play with friend" />
         </ComboBox>
         <WrapPanel x:Name="WPanel" HorizontalAlignment="Center" Height="150" VerticalAlignment="Center" Width="150">
-            <Border x:Name="Box0" Height="50" Width="50" MouseUp="Box0_MouseUp" BorderThickness="0,0,2,2" BorderBrush="DeepSkyBlue" Background="Transparent">
-                <Canvas x:Name="Can0"/>
+            <Border x:Name="Box0"  Height="50" Width="50" MouseUp="Box0_MouseUp" BorderThickness="0,0,2,2" BorderBrush="DeepSkyBlue" Background="Transparent">
+                <Canvas x:Name="Can0" />
             </Border>
             <Border x:Name="Box1" Height="50" Width="50" MouseUp="Box1_MouseUp" BorderThickness="2,0,2,2" BorderBrush="DeepSkyBlue" Background="Transparent">
-                <Canvas x:Name="Can1"/>
+                <Canvas x:Name="Can1" />
             </Border>
             <Border x:Name="Box2" Height="50" Width="50" MouseUp="Box2_MouseUp" BorderThickness="2,0,0,2" BorderBrush="DeepSkyBlue" Background="Transparent">
-                <Canvas x:Name="Can2"/>
+                <Canvas x:Name="Can2" />
             </Border>
             <Border x:Name="Box3" Height="50" Width="50" MouseUp="Box3_MouseUp" BorderThickness="0,2,2,2" BorderBrush="DeepSkyBlue" Background="Transparent">
-                <Canvas x:Name="Can3"/>
+                <Canvas x:Name="Can3" />
             </Border>
             <Border x:Name="Box4" Height="50" Width="50" MouseUp="Box4_MouseUp" BorderThickness="2,2,2,2" BorderBrush="DeepSkyBlue" Background="Transparent">
-                <Canvas x:Name="Can4"/>
+                <Canvas x:Name="Can4" />
             </Border>
             <Border x:Name="Box5" Height="50" Width="50" MouseUp="Box5_MouseUp" BorderThickness="2,2,0,2" BorderBrush="DeepSkyBlue" Background="Transparent">
-                <Canvas x:Name="Can5"/>
+                <Canvas x:Name="Can5" />
             </Border>
             <Border x:Name="Box6" Height="50" Width="50" MouseUp="Box6_MouseUp" BorderThickness="0,2,2,0" BorderBrush="DeepSkyBlue" Background="Transparent">
-                <Canvas x:Name="Can6"/>
+                <Canvas x:Name="Can6" />
             </Border>
             <Border x:Name="Box7" Height="50" Width="50" MouseUp="Box7_MouseUp" BorderThickness="2,2,2,0" BorderBrush="DeepSkyBlue" Background="Transparent">
-                <Canvas x:Name="Can7"/>
+                <Canvas x:Name="Can7" />
             </Border>
             <Border x:Name="Box8" Height="50" Width="50" MouseUp="Box8_MouseUp" BorderThickness="2,2,0,0" BorderBrush="DeepSkyBlue" Background="Transparent">
-                <Canvas x:Name="Can8"/>
+                <Canvas x:Name="Can8" />
             </Border>
         </WrapPanel>
-        <Button x:Name="RestartButton" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="100" Margin="0,0,0,18" Content="Restart" FontSize="14" Click="RestartButton_Click"/>
-
+        <Button x:Name="RestartButton" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="100" Margin="0,0,0,18" Content="Restart" FontSize="14" Click="RestartButton_Click" />
     </Grid>
 </Window>

@@ -6,7 +6,7 @@ namespace TicTacToeCore.Symbols
 {
     internal class Circle
     {
-        private static TranslateTransform PositionCircle() => new TranslateTransform(6,6);
+        private static TranslateTransform PositionCircle() => new TranslateTransform(6, 6);
 
         private static Ellipse CircleDrawing()
         {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TicTacToeCore.Difficulty
+namespace TicTacToeCore.TicTacToe.Difficulty
 {
     internal class MediumDifficulty
     {
@@ -14,7 +14,7 @@ namespace TicTacToeCore.Difficulty
             if ((board[0] == Piece.X && board[1] == Piece.Empty && board[2] == Piece.X) ||
                 (board[1] == Piece.Empty && board[4] == Piece.X && board[7] == Piece.X))
                 return 1;
-            if ((board[0] == Piece.X && board[1] == Piece.X && board[2] == Piece.Empty) || 
+            if ((board[0] == Piece.X && board[1] == Piece.X && board[2] == Piece.Empty) ||
                 (board[2] == Piece.Empty && board[5] == Piece.X && board[8] == Piece.X) ||
                 (board[2] == Piece.Empty && board[4] == Piece.X && board[6] == Piece.X))
                 return 2;

@@ -2,12 +2,14 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using TicTacToeCore.Symbols;
+using TicTacToeCore.TicTacToe;
 
 namespace TicTacToeCore
 {
     public partial class MainWindow : Window
     {
-        private BoardController _boardController;
+        private Board _board;
         private readonly Dictionary<int, Canvas> _canvases;
         private bool _start = true;
 
@@ -26,57 +28,121 @@ namespace TicTacToeCore
                 {7, Can7},
                 {8, Can8}
             };
-            _boardController = new BoardController(Difficulty.SelectedIndex, _canvases);
+            _board = new Board();
+        }
+
+        private void MakeAiMove()
+        {
+            switch (Difficulty.SelectedIndex)
+            {
+                case 0:
+                    _board.MakeEasyMove();
+                    break;
+
+                case 1:
+                    _board.MakeMediumMove();
+                    break;
+
+                case 2:
+                    _board.MakeImpossibleMove();
+                    break;
+            }
+        }
+
+        private static void ShowError()
+        {
+            MessageBox.Show("This cell is occupied. Select another one.", "Error");
+        }
+
+        private void GameOver()
+        {
+            MessageBox.Show("Game over!", "Message");
+            ResetGame();
+        }
+
+        private void DrawSymbolOnBoard(int choice)
+        {
+            if (_board.CurrentTurn == Piece.X)
+                Cross.Draw(_canvases[choice]);
+            else
+                Circle.Draw(_canvases[choice]);
+        }
+
+        private void PerformAction(int choice)
+        {
+            if (_board.IsCellOccupied(choice))
+                ShowError();
+            else
+            {
+                _board.MakeMove(choice);
+                DrawSymbolOnBoard(choice);
+                if (_board.IsGameOver())
+                    GameOver();
+                else if (Difficulty.SelectedIndex != 3)
+                {
+                    MakeAiMove();
+                    DrawSymbolOnBoard(_board.LatestTurnIndex);
+                    if (_board.IsGameOver())
+                        GameOver();
+                }
+            }
+        }
+
+        private void ResetGame()
+        {
+            foreach (var canvas in _canvases)
+                canvas.Value.Children.Clear();
+            _board = new Board();
         }
 
         private void Box0_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            _boardController.ProcessClick(0);
+            PerformAction(0);
         }
 
         private void Box1_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            _boardController.ProcessClick(1);
+            PerformAction(1);
         }
 
         private void Box2_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            _boardController.ProcessClick(2);
+            PerformAction(2);
         }
 
         private void Box3_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            _boardController.ProcessClick(3);
+            PerformAction(3);
         }
 
         private void Box4_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            _boardController.ProcessClick(4);
+            PerformAction(4);
         }
 
         private void Box5_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            _boardController.ProcessClick(5);
+            PerformAction(5);
         }
 
         private void Box6_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            _boardController.ProcessClick(6);
+            PerformAction(6);
         }
 
         private void Box7_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            _boardController.ProcessClick(7);
+            PerformAction(7);
         }
 
         private void Box8_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            _boardController.ProcessClick(8);
+            PerformAction(8);
         }
 
         private void RestartButton_Click(object sender, RoutedEventArgs e)
         {
-            _boardController.ResetGame();
+            ResetGame();
         }
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -84,10 +150,7 @@ namespace TicTacToeCore
             if (_start)
                 _start = false;
             else
-            {
-                _boardController.ResetGame();
-                _boardController = new BoardController(Difficulty.SelectedIndex, _canvases);
-            }
+                ResetGame();
         }
     }
 }

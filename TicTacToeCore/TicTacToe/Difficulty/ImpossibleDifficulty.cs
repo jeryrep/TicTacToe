@@ -1,4 +1,4 @@
-﻿namespace TicTacToeCore.Difficulty
+﻿namespace TicTacToeCore.TicTacToe.Difficulty
 {
     internal class ImpossibleDifficulty
     {

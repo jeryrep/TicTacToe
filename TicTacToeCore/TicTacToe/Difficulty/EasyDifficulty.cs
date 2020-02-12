@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TicTacToeCore.Difficulty
+namespace TicTacToeCore.TicTacToe.Difficulty
 {
     internal static class EasyDifficulty
     {
