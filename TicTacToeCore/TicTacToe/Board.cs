@@ -1,5 +1,4 @@
-﻿using System;
-using TicTacToeCore.TicTacToe.Difficulty;
+﻿using TicTacToeCore.TicTacToe.Difficulty;
 
 namespace TicTacToeCore.TicTacToe
 {
@@ -8,6 +7,7 @@ namespace TicTacToeCore.TicTacToe
         private readonly Piece[] _board = { Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty };
         public Piece CurrentTurn { get; private set; }
         public int LatestTurnIndex { get; private set; }
+
         public bool IsCellOccupied(int choice) => _board[choice] != Piece.Empty;
 
         public bool IsGameOver() => BoardAnalyzer.CheckGameWin(_board, SwitchPiece()) || BoardAnalyzer.CheckGameEnd(_board);
@@ -21,7 +21,7 @@ namespace TicTacToeCore.TicTacToe
 
         public void MakeImpossibleMove()
         {
-            throw new NotImplementedException();
+            MakeMove(ImpossibleDifficulty.GetIndex(_board));
         }
 
         public void MakeEasyMove()
@@ -38,7 +38,7 @@ namespace TicTacToeCore.TicTacToe
 
         public Board()
         {
-            CurrentTurn = Piece.O;
+            CurrentTurn = Piece.X;
         }
     }
 }

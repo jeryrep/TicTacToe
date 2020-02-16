@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace TicTacToeCore.TicTacToe.Difficulty
 {
@@ -92,18 +91,6 @@ namespace TicTacToeCore.TicTacToe.Difficulty
             return -1;
         }
 
-        private static int GenerateRandomNumber() => new Random().Next(0, 9);
-
-        public static int GetIndex(Piece[] board)
-        {
-            var suggestedCell = SuggestedCell(board);
-            if (suggestedCell != -1)
-                return suggestedCell;
-            int randomCell;
-            do
-                randomCell = GenerateRandomNumber();
-            while (board[randomCell] != Piece.Empty);
-            return randomCell;
-        }
+        public static int GetIndex(Piece[] board) => SuggestedCell(board) != -1 ? SuggestedCell(board) : EasyDifficulty.GetIndex(board);
     }
 }
