@@ -12,24 +12,6 @@ namespace TicTacToeCore
         private readonly Dictionary<int, Canvas> _canvases;
         private readonly int _difficulty;
 
-        private void MakeAiMove()
-        {
-            switch (_difficulty)
-            {
-                case 0:
-                    _board.MakeEasyMove();
-                    break;
-
-                case 1:
-                    _board.MakeMediumMove();
-                    break;
-
-                case 2:
-                    _board.MakeImpossibleMove();
-                    break;
-            }
-        }
-
         private static void ShowError()
         {
             MessageBox.Show("This cell is occupied. Select another one.", "Error");
@@ -61,7 +43,7 @@ namespace TicTacToeCore
                     GameOver();
                 else if (_difficulty != 3)
                 {
-                    MakeAiMove();
+                    _board.MakeAiMove();
                     DrawSymbolOnBoard(_board.LatestTurnIndex);
                     if (_board.IsGameOver())
                         GameOver();
@@ -73,14 +55,14 @@ namespace TicTacToeCore
         {
             foreach (var canvas in _canvases)
                 canvas.Value.Children.Clear();
-            _board = new Board();
+            _board = new Board(_difficulty);
         }
 
         public GameController(Dictionary<int, Canvas> canvases, int difficulty)
         {
             _canvases = canvases;
             _difficulty = difficulty;
-            _board = new Board();
+            _board = new Board(difficulty);
         }
     }
 }

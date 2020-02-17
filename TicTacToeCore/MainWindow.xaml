@@ -7,10 +7,10 @@
         Title="Tic Tac Toe" Height="300" Width="370" ResizeMode="CanMinimize">
     <Grid Background="CadetBlue">
         <ComboBox Name="Difficulty" SelectedIndex="1" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Width="109" SelectionChanged="Selector_OnSelectionChanged">
-            <ComboBoxItem Content="Easy" />
-            <ComboBoxItem Content="Medium" />
-            <ComboBoxItem Content="Impossible" />
-            <ComboBoxItem Content="Play with friend" />
+            <ComboBoxItem Name="Easy" Content="Easy" />
+            <ComboBoxItem Name="Medium"  Content="Medium" />
+            <ComboBoxItem Name="Impossible" Content="Impossible" />
+            <ComboBoxItem Name="Friend" Content="Play with friend" />
         </ComboBox>
         <WrapPanel x:Name="WPanel" HorizontalAlignment="Center" Height="150" VerticalAlignment="Center" Width="150">
             <Border x:Name="Box0"  Height="50" Width="50" MouseUp="Box0_MouseUp" BorderThickness="0,0,2,2" BorderBrush="DeepSkyBlue" Background="Transparent">

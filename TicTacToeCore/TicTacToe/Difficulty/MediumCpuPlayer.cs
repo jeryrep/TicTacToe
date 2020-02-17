@@ -2,7 +2,7 @@
 
 namespace TicTacToeCore.TicTacToe.Difficulty
 {
-    internal class MediumDifficulty
+    internal class MediumCpuPlayer : IDifficultyCpuPlayer
     {
         private static int CheckLosingPosition(IReadOnlyList<Piece> board)
         {
@@ -91,6 +91,6 @@ namespace TicTacToeCore.TicTacToe.Difficulty
             return -1;
         }
 
-        public static int GetIndex(Piece[] board) => SuggestedCell(board) != -1 ? SuggestedCell(board) : EasyDifficulty.GetIndex(board);
+        public int GetNextMove(Piece[] board) => SuggestedCell(board) != -1 ? SuggestedCell(board) : new EasyCpuPlayer().GetNextMove(board);
     }
 }

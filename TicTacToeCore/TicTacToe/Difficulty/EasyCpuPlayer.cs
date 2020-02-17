@@ -2,9 +2,9 @@
 
 namespace TicTacToeCore.TicTacToe.Difficulty
 {
-    internal static class EasyDifficulty
+    internal class EasyCpuPlayer : IDifficultyCpuPlayer
     {
-        public static int GetIndex(Piece[] board)
+        public int GetNextMove(Piece[] board)
         {
             var randomNumberGenerator = new Random();
             int randomCell;

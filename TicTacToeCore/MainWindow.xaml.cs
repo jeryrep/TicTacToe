@@ -26,7 +26,8 @@ namespace TicTacToeCore
                 {7, Can7},
                 {8, Can8}
             };
-            _gameController = new GameController(_canvases, Difficulty.SelectedIndex);
+            _gameController =
+                new GameController(_canvases, Difficulty.SelectedIndex);
         }
 
         private void Box0_MouseUp(object sender, MouseButtonEventArgs e)

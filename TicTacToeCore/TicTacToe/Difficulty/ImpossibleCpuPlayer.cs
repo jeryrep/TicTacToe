@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace TicTacToeCore.TicTacToe.Difficulty
 {
-    internal class ImpossibleDifficulty
+    internal class ImpossibleCpuPlayer : IDifficultyCpuPlayer
     {
         private const Piece Computer = Piece.O;
         private const Piece Player = Piece.X;
@@ -63,7 +63,7 @@ namespace TicTacToeCore.TicTacToe.Difficulty
             return newBoard;
         }
 
-        public static int GetIndex(Piece[] board)
+        public int GetNextMove(Piece[] board)
         {
             Minimax(board, Computer);
             return _choice;
