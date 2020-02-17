@@ -7,6 +7,7 @@ namespace TicTacToeCore.TicTacToe.Difficulty
     {
         private const Piece Computer = Piece.O;
         private const Piece Player = Piece.X;
+        private static int _choice;
 
         private static int Minimax(IReadOnlyList<Piece> inputBoard, Piece player)
         {
@@ -17,23 +18,23 @@ namespace TicTacToeCore.TicTacToe.Difficulty
             if (BoardAnalyzer.CheckGameEnd(board))
                 return 0;
 
-            var moveScore = new Dictionary<int, int>();
+            var scores = new List<int>();
+            var moves = new List<int>();
 
             for (var i = 0; i < 9; i++)
             {
                 if (board[i] != Piece.Empty)
                     continue;
-                var score = Minimax(MakeBoardMove(board, player, i), SwitchPiece(player));
-                moveScore.Add(i, score);
+                scores.Add(Minimax(MakeBoardMove(board, player, i), SwitchPiece(player)));
+                moves.Add(i);
             }
-            return moveScore.Aggregate((key, score) => key.Value > score.Value ? key : score).Key;
-            /*if (player == Computer)
+            if (player == Computer)
             {
-                var maxScoreIndex = moveScore.Aggregate((key, score) => key.Value > score.Value ? key : score).Key;
-                return maxScoreIndex;
+                _choice = moves[scores.IndexOf(scores.Max())];
+                return scores.Max();
             }
-            var minScoreIndex = moveScore.Aggregate((key, score) => key.Value < score.Value ? key : score).Key;
-            return minScoreIndex;*/
+            _choice = moves[scores.IndexOf(scores.Min())];
+            return scores.Min();
         }
 
         private static int CheckScore(Piece[] board)
@@ -62,6 +63,10 @@ namespace TicTacToeCore.TicTacToe.Difficulty
             return newBoard;
         }
 
-        public static int GetIndex(Piece[] board) => Minimax(board, Computer);
+        public static int GetIndex(Piece[] board)
+        {
+            Minimax(board, Computer);
+            return _choice;
+        }
     }
 }
