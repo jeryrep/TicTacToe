@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace TicTacToeCore.TicTacToe.Difficulty
+namespace TicTacToe.Core.Game.Difficulty
 {
     internal class MediumCpuPlayer : IDifficultyCpuPlayer
     {

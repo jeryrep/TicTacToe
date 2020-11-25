@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TicTacToeCore.TicTacToe.Difficulty
+namespace TicTacToe.Core.Game.Difficulty
 {
     internal class EasyCpuPlayer : IDifficultyCpuPlayer
     {

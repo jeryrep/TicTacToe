@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace TicTacToeCore.TicTacToe
+namespace TicTacToe.Core.Game
 {
     internal class BoardAnalyzer
     {

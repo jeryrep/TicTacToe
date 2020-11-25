@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using TicTacToeCore.Symbols;
-using TicTacToeCore.TicTacToe;
+using TicTacToe.WPF.Symbols;
+using TicTacToe.Core.Game;
 
-namespace TicTacToeCore
+namespace TicTacToe.WPF
 {
     internal class GameController
     {

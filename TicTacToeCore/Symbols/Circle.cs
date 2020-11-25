@@ -2,11 +2,14 @@
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace TicTacToeCore.Symbols
+namespace TicTacToe.WPF.Symbols
 {
     internal class Circle
     {
-        private static TranslateTransform PositionCircle() => new TranslateTransform(6, 6);
+        private static TranslateTransform PositionCircle()
+        {
+            return new(6, 6);
+        }
 
         private static Ellipse CircleDrawing()
         {

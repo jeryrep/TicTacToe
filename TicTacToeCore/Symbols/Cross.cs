@@ -2,7 +2,7 @@
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace TicTacToeCore.Symbols
+namespace TicTacToe.WPF.Symbols
 {
     internal class Cross
     {

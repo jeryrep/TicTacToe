@@ -1,4 +1,4 @@
-﻿namespace TicTacToeCore.TicTacToe.Difficulty
+﻿namespace TicTacToe.Core.Game.Difficulty
 {
     internal interface IDifficultyCpuPlayer
     {

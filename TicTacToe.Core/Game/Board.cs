@@ -1,19 +1,32 @@
-﻿using TicTacToeCore.TicTacToe.Difficulty;
+﻿using TicTacToe.Core.Game.Difficulty;
 
-namespace TicTacToeCore.TicTacToe
+namespace TicTacToe.Core.Game
 {
-    internal class Board
+    public class Board
     {
-        private readonly Piece[] _board = { Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty };
+        private readonly Piece[] _board =
+        {
+            Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty,
+            Piece.Empty
+        };
         public Piece CurrentTurn { get; private set; }
         public int LatestTurnIndex { get; private set; }
         private readonly IDifficultyCpuPlayer _cpuPlayer;
 
-        public bool IsCellOccupied(int choice) => _board[choice] != Piece.Empty;
+        public bool IsCellOccupied(int choice)
+        {
+            return _board[choice] != Piece.Empty;
+        }
 
-        public bool IsGameOver() => BoardAnalyzer.CheckGameWin(_board, SwitchPiece()) || BoardAnalyzer.CheckGameEnd(_board);
+        public bool IsGameOver()
+        {
+            return BoardAnalyzer.CheckGameWin(_board, SwitchPiece()) || BoardAnalyzer.CheckGameEnd(_board);
+        }
 
-        public Piece SwitchPiece() => CurrentTurn == Piece.X ? Piece.O : Piece.X;
+        public Piece SwitchPiece()
+        {
+            return CurrentTurn == Piece.X ? Piece.O : Piece.X;
+        }
 
         public void MakeAiMove()
         {

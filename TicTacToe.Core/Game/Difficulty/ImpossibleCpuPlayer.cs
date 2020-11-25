@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace TicTacToeCore.TicTacToe.Difficulty
+namespace TicTacToe.Core.Game.Difficulty
 {
     internal class ImpossibleCpuPlayer : IDifficultyCpuPlayer
     {
